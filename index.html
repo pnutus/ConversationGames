@@ -7,7 +7,8 @@
     
     <script type="text/javascript" charset="utf-8">
         $(function() {
-            var wordlist, shuffled_wordlist
+            var wordlist, shuffled_wordlist;
+            
             // Get the word list
             $.get("/ord.txt", function(data) {
                 wordlist = data.split('\n');
