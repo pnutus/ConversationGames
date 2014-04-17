@@ -12,7 +12,7 @@
 			//
 			
 			var wordlist, shuffled_wordlist;
-			var points = 0;
+			var points = -1;
             
             // Get the word list
             $.get("ord.txt", function(data) {
@@ -67,6 +67,12 @@
     </script>
     
     <style type="text/css" media="screen">
+	
+		body, html {
+			margin: 0;
+			padding: 0;
+		}
+		
         #container {
             position: absolute;
             top: 0;
@@ -87,6 +93,13 @@
             -webkit-user-select: none; 
             -o-user-select: none;
         }
+		
+		#points {
+			font-size: 50px;
+			line-height: 40px;
+			padding-left: 25px;
+			padding-top: 25px;
+		}
             
         
     </style>
@@ -99,7 +112,7 @@
         </span>
     </div>
 	<div id="points">
-		0
+		
 	</div>
 </body>
 </html>
