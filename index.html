@@ -11,7 +11,7 @@
             // This is what's interesting
 			//
 			
-			var wordlist, shuffled_wordlist;
+			var wordlist, shuffled_wordlist, current_word;
 			var points = -1;
             
             // Get the word list
@@ -26,20 +26,21 @@
                     // reshuffle deck when empty
                     shuffled_wordlist = shuffle( wordlist );
                 }
+                // Update points
 				points++;
 				$('#points').text( points );
-                var random_word = shuffled_wordlist.pop();  
-                $('#the_word').text( random_word );
+                
+                // Add previous word to history
+                $('#history').prepend( current_word + "<br />");
+                
+                // New word
+                current_word = shuffled_wordlist.pop();  
+                $('#the_word').text( current_word );
             });
             
 			//
             // Functions below         
             //
-			
-            function randomFromArray( a ) {
-                var random_int = Math.floor( Math.random() * a.length );
-                return a[random_int];
-            }
             
             function shuffle(a) {
                 var array = a.slice(0);
@@ -71,10 +72,15 @@
 		body, html {
 			margin: 0;
 			padding: 0;
+            -moz-user-select: none; 
+            -khtml-user-select: none; 
+            -webkit-user-select: none; 
+            -o-user-select: none;
 		}
 		
         #container {
             position: absolute;
+            z-index: 1000;
             top: 0;
             left: 0;
             width: 100%;
@@ -88,10 +94,6 @@
             display: table-cell;
             vertical-align: middle;
             font-size: 100px;
-            -moz-user-select: none; 
-            -khtml-user-select: none; 
-            -webkit-user-select: none; 
-            -o-user-select: none;
         }
 		
 		#points {
@@ -100,7 +102,16 @@
 			padding-left: 25px;
 			padding-top: 25px;
 		}
-            
+        
+        #history {
+            position: absolute;
+            top: 50%;
+            margin-top: 120px;
+            padding-bottom:50px;
+            text-align: center;
+            width: 100%;
+            font-size: 40px;
+        }
         
     </style>
     
@@ -111,8 +122,7 @@
             Start
         </span>
     </div>
-	<div id="points">
-		
-	</div>
+	<div id="points"></div>
+    <div id="history"></div>
 </body>
 </html>
