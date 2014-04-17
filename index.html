@@ -1,0 +1,91 @@
+<html>
+<head>
+    <title>ConvoGame</title>
+    <meta charset="utf-8">
+    <script src="jquery-2.1.0.min.js" type="text/javascript" charset="utf-8"></script>
+    
+    
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            var wordlist, shuffled_wordlist
+            // Get the word list
+            $.get("/ord.txt", function(data) {
+                wordlist = data.split('\n');
+                shuffled_wordlist = shuffle( wordlist );
+            })
+            
+            $( "#container" ).click(function() {
+                if (shuffled_wordlist.length == 0) {
+                    // reshuffle deck when empty
+                    shuffled_wordlist = shuffle( wordlist );
+                }
+                var random_word = shuffled_wordlist.pop();  
+                $('#the_word').text( random_word );
+            });
+            
+                      
+            
+            function randomFromArray( a ) {
+                var random_int = Math.floor( Math.random() * a.length );
+                return a[random_int];
+            }
+            
+            function shuffle(a) {
+                var array = a.slice(0);
+                var counter = array.length, temp, index;
+
+                // While there are elements in the array
+                while (counter > 0) {
+                    // Pick a random index
+                    index = Math.floor(Math.random() * counter);
+
+                    // Decrease counter by 1
+                    counter--;
+
+                    // And swap the last element with it
+                    temp = array[counter];
+                    array[counter] = array[index];
+                    array[index] = temp;
+                }
+
+                return array;
+            }
+        })
+        
+        
+    </script>
+    
+    <style type="text/css" media="screen">
+        #container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            text-align: center;
+            display: table;
+        }
+    
+        #the_word {
+            display: table-cell;
+            vertical-align: middle;
+            font-size: 100px;
+            -moz-user-select: none; 
+            -khtml-user-select: none; 
+            -webkit-user-select: none; 
+            -o-user-select: none;
+        }
+            
+        
+    </style>
+    
+</head>
+<body>
+    <div id="container">
+        <span id="the_word">
+            Start
+        </span>
+    </div>
+</body>
+</html>
