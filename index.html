@@ -7,25 +7,35 @@
     
     <script type="text/javascript" charset="utf-8">
         $(function() {
-            var wordlist, shuffled_wordlist;
+			//
+            // This is what's interesting
+			//
+			
+			var wordlist, shuffled_wordlist;
+			var points = 0;
             
             // Get the word list
-            $.get("/ord.txt", function(data) {
+            $.get("ord.txt", function(data) {
                 wordlist = data.split('\n');
                 shuffled_wordlist = shuffle( wordlist );
             })
             
+			// This is what happens when clicking
             $( "#container" ).click(function() {
                 if (shuffled_wordlist.length == 0) {
                     // reshuffle deck when empty
                     shuffled_wordlist = shuffle( wordlist );
                 }
+				points++;
+				$('#points').text( points );
                 var random_word = shuffled_wordlist.pop();  
                 $('#the_word').text( random_word );
             });
             
-                      
-            
+			//
+            // Functions below         
+            //
+			
             function randomFromArray( a ) {
                 var random_int = Math.floor( Math.random() * a.length );
                 return a[random_int];
@@ -88,5 +98,8 @@
             Start
         </span>
     </div>
+	<div id="points">
+		0
+	</div>
 </body>
 </html>
